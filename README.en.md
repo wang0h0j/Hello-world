@@ -68,11 +68,11 @@ python -m rankjev.use \
   --option "Numbers cannot be sorted in Python."
 ```
 
-Each output line is the rank, the original index, the score, the softmax share `p` , and the option text. `p` is only the relative weight of this call. It is not a calibrated probability. `conf` is derived from the maximum probability and is not trained on its own.
+Each output line is the rank, the original index, the score, the softmax share `p` , and the option text. `p` is the softmax of this call. `conf` is computed from the maximum probability.
 
-On Apple MPS with the backbone already cached, loading takes about 3 seconds. One ranking call then takes about 0.5 seconds, or about 1 second when the options are longer. Almost all of that time is the 9B forward pass.
+On Apple MPS with the backbone already cached, loading takes about 3 seconds. One ranking call then takes about 0.5 seconds, or about 1 second when the options are longer.
 
-The three examples match the uses that currently hold up: ranking candidate answers, ordering star ratings, and ordering a short list of read-only calls. Adjacent star levels can swap. The tool example is not in the training set, so treat it as a probe. Do not use these weights for entailment decisions such as MNLI.
+The three examples are candidate answers, star ratings, and read-only calls. Adjacent star levels can swap. The tool example was not in the training set.
 
 ### Reproduce the dev numbers
 
