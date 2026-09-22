@@ -2,15 +2,17 @@
 
 在冻结的预训练模型上训练一个列表排序头。底座权重固定，只更新头的参数。底座通过 `RANKJEV_MODEL` 指定，可以是本机目录或 Hugging Face 模型名。头的宽度跟随底座的隐藏维。隐藏维为 4096 时，头的参数量是 540,673。
 
-头为每个选项和当前题目各算一组 16×4 的向量，分组做内积后相加，得到该选项的分数。分数高的选项排在前面。
+头为每个选项和当前题目各算一组 $16 \times 4$ 的向量，分组做内积后相加，得到该选项的分数。分数高的选项排在前面。
 
-```text
-K_i = W_k LayerNorm(h_i)
-Q   = tanh(W_q LayerNorm(h_state))
-z_i = scale · sum_j(K_ij · Q_j) / sqrt(4 * 16)
-```
+$$
+\begin{aligned}
+K_i &= W_k \operatorname{LayerNorm}(h_i) \\
+Q &= \tanh(W_q \operatorname{LayerNorm}(h_{\mathrm{state}})) \\
+z_i &= s \cdot \frac{\sum_j K_{ij}^{\top} Q_j}{\sqrt{4 \times 16}}
+\end{aligned}
+$$
 
-`W_k` 与 `W_q` 是两个独立的线性层。`h_i` 是第 i 个选项末尾的隐藏状态，`h_state` 是 `Answer:` 位置的隐藏状态。`tanh` 只作用在题目一侧。
+$W_k$ 与 $W_q$ 是两个独立的线性层。$h_i$ 是第 $i$ 个选项末尾的隐藏状态，$h_{\mathrm{state}}$ 是 `Answer:` 位置的隐藏状态。$\tanh$ 只作用在题目一侧。$s$ 是一个可学习的正标量。
 
 ## 损失
 
@@ -18,10 +20,10 @@ z_i = scale · sum_j(K_ij · Q_j) / sqrt(4 * 16)
 
 | 条件 | 损失 |
 |---|---|
-| `gold` 中不同数值不少于 3 个 | 取目标分数最高的前 10 项，计算预测分数与目标名次的 Pearson 相关，损失为 `1 - 相关`。并列目标使用中位名次 |
-| `gold` 中不同数值不超过 2 个 | 对每一对「更高分，更低分」计算 `softplus(-(z_high - z_low))` |
+| `gold` 中不同数值不少于 3 个 | 取目标分数最高的前 10 项，计算预测分数与目标名次的 Pearson 相关 $\rho$，损失为 $1-\rho$。并列目标使用中位名次 |
+| `gold` 中不同数值不超过 2 个 | 对每一对更高分与更低分计算 $\operatorname{softplus}(-(z_{\mathrm{high}}-z_{\mathrm{low}}))$ |
 
-最长公共子序列只在验证时计算。置信度由当次分数的 softmax 算出，不单独作为损失。
+最长公共子序列只在验证时计算。置信度由当次分数的 $\operatorname{softmax}$ 算出，不单独作为损失。
 
 每个训练样本会把 `options` 和 `gold` 用同一个随机置换打乱。
 
