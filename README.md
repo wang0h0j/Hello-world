@@ -12,7 +12,7 @@ z_i &= s \cdot \frac{\sum_j K_{ij} \cdot Q_j}{\sqrt{4 \times 16}}
 \end{aligned}
 $$
 
-$W_k$ 与 $W_q$ 是两个独立的线性层。 $h_i$ 是第 $i$ 个选项末尾的隐藏状态， $h_s$ 是 `Answer:` 位置的隐藏状态。 $\tanh$ 只作用在题目一侧。$s$ 是一个可学习的正标量。 $\mathrm{LN}$ 是 LayerNorm。
+$W_k$ 与 $W_q$ 是两个独立的线性层。 $h_i$ 是第 $i$ 个选项末尾的隐藏状态， $h_s$ 是 `Answer:` 位置的隐藏状态。 $\tanh$ 只作用在题目一侧。 $s$ 是一个可学习的正标量。 $\mathrm{LN}$ 是 LayerNorm。
 
 ## 损失
 
