@@ -1,0 +1,11 @@
+{
+  "id": "tools",
+  "stem": "Rank these read-only calls for the request. Higher score = should be tried first.\n\nRead the last 20 daily closes for stock 600036. Do not write anything.",
+  "options": [
+    "server=sse name=quote_dayk effect=read\nargs: stockCode=600036 begin=-20 end=-1 period=day select=date,close",
+    "server=sse name=quote_dayk effect=read\nargs: stockCode=600036 begin=-20 end=-1 period=week select=date,close",
+    "server=sse name=quote_mink effect=read\nargs: stockCode=600036 begin=-20 end=-1",
+    "server=db name=query_rows effect=query\nargs: table=quotes code=600036",
+    "server=db name=insert_rows effect=append\nargs: table=quotes"
+  ]
+}

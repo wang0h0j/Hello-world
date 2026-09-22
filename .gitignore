@@ -5,6 +5,7 @@ __pycache__/
 
 runs/
 *.pt
+!weights/qwen35-9b-kq-head.pt
 *.safetensors
 *.bin
 

@@ -41,7 +41,7 @@ def load_kq_model(ckpt_path: Path, device: torch.device, model_override: str = "
 
 def main(argv=None):
     p = argparse.ArgumentParser(description="Evaluate the compact K/Q head")
-    p.add_argument("--ckpt", default="runs/kq-h16d4.pt")
+    p.add_argument("--ckpt", default="weights/qwen35-9b-kq-head.pt")
     p.add_argument("--data", default="data/listwise/dev.jsonl")
     p.add_argument("--model", default="", help="override backbone path")
     p.add_argument("--device", default="mps", choices=("auto", "mps", "cuda", "cpu"))

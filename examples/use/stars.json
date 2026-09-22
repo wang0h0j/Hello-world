@@ -1,0 +1,11 @@
+{
+  "id": "stars",
+  "stem": "How many stars did this reviewer give?\n\nThe food was cold, the order was wrong, and nobody came back to fix it.",
+  "options": [
+    "1 star: terrible experience",
+    "2 stars: poor",
+    "3 stars: average",
+    "4 stars: good",
+    "5 stars: excellent"
+  ]
+}

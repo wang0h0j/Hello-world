@@ -1,0 +1,10 @@
+{
+  "id": "answers",
+  "stem": "Rank the candidate answers to the user. Higher score = a better response.\n\nHow do I sort a list of numbers in Python?",
+  "options": [
+    "Use sorted(numbers) for a new list, or numbers.sort() to sort in place.",
+    "I am not sure, maybe try clicking the list.",
+    "sorted(numbers) returns a new sorted list. numbers.sort() sorts the original list and returns None.",
+    "Numbers cannot be sorted in Python."
+  ]
+}
