@@ -14,6 +14,31 @@
 | Max length | 768 |
 | Dev , 1,767 rows | top1 0.715 , MRR 0.846 , NDCG 0.917 , Spearman 0.634 , LCS 0.820 |
 
+## JevBench public split
+
+Public items from Benchmark Heaven. Each count is whether the top-ranked option matches the gold label. The Jev column is the published per-item record for Jev 1.13.0 on the same items.
+
+Easy is 48 items. Hard is 111 items, scored with a 4,096-token cap so the stem and the options both fit. Training still uses a max length of 768. On the full hard tier of 220 items (109 of them unpublished), the Jev 1.13.0 record is 74.1%.
+
+| Split | Family | Items | Rank head | Jev 1.13.0 |
+|---|---|---:|---:|---:|
+| Easy | Total | 48 | 47 | 48 |
+| Easy | Fact | 12 | 11 | 12 |
+| Easy | Extraction | 12 | 12 | 12 |
+| Easy | Intent | 12 | 12 | 12 |
+| Easy | Tool selection | 12 | 12 | 12 |
+| Hard | Total | 111 | 58 | 81 |
+| Hard | Multi-hop | 18 | 9 | 15 |
+| Hard | Ambiguous | 7 | 2 | 6 |
+| Hard | Judge | 17 | 9 | 13 |
+| Hard | Long policy | 19 | 9 | 12 |
+| Hard | Tradeoff | 6 | 3 | 5 |
+| Hard | Trap | 8 | 6 | 8 |
+| Hard | Probability | 10 | 6 | 7 |
+| Hard | Temporal / numeric | 15 | 3 | 4 |
+| Hard | Adversarial | 6 | 6 | 6 |
+| Hard | Routing | 5 | 5 | 5 |
+
 These weights match Qwen3.5-9B only. Another backbone has a different hidden size or tokenizer, so the checkpoint does not apply. The training code can be used with another model, but that is a new run, not a load of this file.
 
 The backbone is about 18 GB and is not included. A local directory or a Hub id both work:
