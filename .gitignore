@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+*.py[cod]
+.DS_Store
+
+runs/
+*.pt
+*.safetensors
+*.bin
+
+data/listwise/*.jsonl
+Models/
+.env
+.env.*

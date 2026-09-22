@@ -1,0 +1,4 @@
+torch>=2.2
+transformers>=5.7
+datasets>=2.20
+# peft not used; do not LoRA the backbone.

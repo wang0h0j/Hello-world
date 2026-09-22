@@ -1,0 +1,108 @@
+{
+  "name": "listwise",
+  "gold": "aspect-mean UltraFeedback / human HelpSteer2 / data-intrinsic order. No Jev. No clip.",
+  "max_len": 768,
+  "train": {
+    "n": 22062,
+    "by_source": {
+      "ultrafeedback": 10254,
+      "numeric": 900,
+      "helpsteer2": 3634,
+      "date": 540,
+      "yelp/score": 810,
+      "agnews/choice": 540,
+      "mnli/choice": 810,
+      "legacy_policy/score": 403,
+      "legacy_policy/choice": 202,
+      "boolq/noul": 540,
+      "trec/choice": 450,
+      "compositional/choice": 630,
+      "amazon/score": 810,
+      "sst5/score": 810,
+      "web_noul": 77,
+      "policy_rule": 193,
+      "order_restore": 57,
+      "legacy_policy/noul": 180,
+      "web_relevance": 77,
+      "nli_claim": 40,
+      "web_answer": 77,
+      "web_intent": 28
+    },
+    "by_k": {
+      "2": 5254,
+      "3": 4623,
+      "4": 7780,
+      "5": 2681,
+      "6": 866,
+      "7": 374,
+      "8": 354,
+      "9": 130
+    },
+    "by_qtype": {
+      "rank": 15539,
+      "score": 2833,
+      "choice": 2700,
+      "noul": 990
+    }
+  },
+  "dev": {
+    "n": 1767,
+    "by_source": {
+      "ultrafeedback": 600,
+      "helpsteer2": 250,
+      "agnews/choice": 60,
+      "yelp/score": 90,
+      "trec/choice": 50,
+      "compositional/choice": 70,
+      "web_intent": 8,
+      "amazon/score": 90,
+      "mnli/choice": 90,
+      "sst5/score": 90,
+      "boolq/noul": 60,
+      "legacy_policy/score": 45,
+      "date": 60,
+      "numeric": 100,
+      "legacy_policy/noul": 20,
+      "web_noul": 8,
+      "legacy_policy/choice": 22,
+      "nli_claim": 8,
+      "order_restore": 8,
+      "web_answer": 8,
+      "policy_rule": 22,
+      "web_relevance": 8
+    },
+    "by_k": {
+      "2": 430,
+      "3": 355,
+      "4": 486,
+      "5": 297,
+      "6": 96,
+      "7": 40,
+      "8": 48,
+      "9": 15
+    },
+    "by_qtype": {
+      "rank": 1034,
+      "choice": 308,
+      "score": 315,
+      "noul": 110
+    }
+  },
+  "audit": {
+    "unique_ids": 23829,
+    "duplicate_ids": 0,
+    "val_rate": 0.0742,
+    "val_uf_share": 0.3396,
+    "train_n_unique_ge3": 14600,
+    "train_n_unique_le2": 7462,
+    "broken_gold": 0
+  },
+  "notes": [
+    "UltraFeedback: mean of 4 aspect Likert scores; drop longest mid-ranked answer if needed, never the unique max/min",
+    "overall_score unused (disagrees with aspect winners ~46%)",
+    "ids are unique (dataset index + prompt hash); val is stratified and UF-capped",
+    "programmatic arms are unique cases, not 800 copies of 10 facts",
+    "dropped banking77, dbpedia14, and yelp/imdb/agnews noul",
+    "every row encodes to ≤ 768 tokens on Qwen3.5-4B"
+  ]
+}
