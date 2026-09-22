@@ -6,13 +6,13 @@
 
 $$
 \begin{aligned}
-K_i &= W_k \operatorname{LayerNorm}(h_i) \\
-Q &= \tanh(W_q \operatorname{LayerNorm}(h_{\mathrm{state}})) \\
-z_i &= s \cdot \frac{\sum_j K_{ij}^{\top} Q_j}{\sqrt{4 \times 16}}
+K_i &= W_k \mathrm{LN}(h_i) \\
+Q &= \tanh(W_q \mathrm{LN}(h_s)) \\
+z_i &= s \cdot \frac{\sum_j K_{ij} \cdot Q_j}{\sqrt{4 \times 16}}
 \end{aligned}
 $$
 
-$W_k$ 与 $W_q$ 是两个独立的线性层。$h_i$ 是第 $i$ 个选项末尾的隐藏状态，$h_{\mathrm{state}}$ 是 `Answer:` 位置的隐藏状态。$\tanh$ 只作用在题目一侧。$s$ 是一个可学习的正标量。
+$W_k$ 与 $W_q$ 是两个独立的线性层。$h_i$ 是第 $i$ 个选项末尾的隐藏状态，$h_s$ 是 `Answer:` 位置的隐藏状态。$\tanh$ 只作用在题目一侧。$s$ 是一个可学习的正标量。$\mathrm{LN}$ 是 LayerNorm。
 
 ## 损失
 
@@ -21,9 +21,9 @@ $W_k$ 与 $W_q$ 是两个独立的线性层。$h_i$ 是第 $i$ 个选项末尾�
 | 条件 | 损失 |
 |---|---|
 | `gold` 中不同数值不少于 3 个 | 取目标分数最高的前 10 项，计算预测分数与目标名次的 Pearson 相关 $\rho$，损失为 $1-\rho$。并列目标使用中位名次 |
-| `gold` 中不同数值不超过 2 个 | 对每一对更高分与更低分计算 $\operatorname{softplus}(-(z_{\mathrm{high}}-z_{\mathrm{low}}))$ |
+| `gold` 中不同数值不超过 2 个 | 对每一对更高分与更低分计算 $\mathrm{softplus}(-(z_{\mathrm{high}}-z_{\mathrm{low}}))$ |
 
-最长公共子序列只在验证时计算。置信度由当次分数的 $\operatorname{softmax}$ 算出，不单独作为损失。
+最长公共子序列只在验证时计算。置信度由当次分数的 $\mathrm{softmax}$ 算出，不单独作为损失。
 
 每个训练样本会把 `options` 和 `gold` 用同一个随机置换打乱。
 
