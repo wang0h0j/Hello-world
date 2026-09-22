@@ -1,6 +1,6 @@
 # rank-kq
 
-在冻结的 Qwen3.5-9B 上训练一个列表排序头。底座权重固定，只更新头的参数。Qwen3.5-9B 的隐藏维为 4096，头的参数量为 540,673。
+在冻结的预训练模型上训练一个列表排序头。底座权重固定，只更新头的参数。底座通过 `RANKJEV_MODEL` 指定，可以是本机目录或 Hugging Face 模型名。头的宽度跟随底座的隐藏维。隐藏维为 4096 时，头的参数量是 540,673。
 
 头为每个选项和当前题目各算一组 16×4 的向量，分组做内积后相加，得到该选项的分数。分数高的选项排在前面。
 
@@ -29,7 +29,7 @@ z_i = scale · sum_j(K_ij · Q_j) / sqrt(4 * 16)
 
 ```bash
 pip install -r requirements.txt
-export RANKJEV_MODEL=/path/to/Qwen3.5-9B   # 也可设为 Qwen/Qwen3.5-9B
+export RANKJEV_MODEL=/path/to/model   # 或 Hugging Face 模型名
 
 python -m rankjev.check
 python -m rankjev.fit
