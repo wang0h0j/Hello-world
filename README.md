@@ -1,5 +1,7 @@
 # rank-kq
 
+[English](README.en.md)
+
 ## Qwen3.5-9B 权重
 
 `weights/qwen35-9b-kq-head.pt` 是用冻结的 Qwen3.5-9B 训练一轮后的排序头。文件约 2.1 MB，只有头的参数、步数和 dev 结果，不含底座，也不含优化器状态。
